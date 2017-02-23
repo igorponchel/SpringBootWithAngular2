@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  title: String = 'Bienvenue sur MOBI';
+  title: String = 'Bienvenue sur le Dashboard';
 
   constructor( ) { }
 
