@@ -1,0 +1,61 @@
+<div class="animated fadeIn">
+    <div class="col-md-9">
+        <h2>Liste des Paramètres</h2>
+        <ng2-smart-table [settings]="settings" [source]="source" (rowSelect)="onRowSelect($event)"></ng2-smart-table>
+
+
+        <div class="boutonsActions">
+            <button [disabled]="loading" class="btn btn-primary" (click)="supprimerParametre()">Supprimer</button>
+            <button [disabled]="loading" class="btn btn-primary" (click)="modifierActive()">Modifier</button>
+            <button [disabled]="loading" class="btn btn-primary" (click)="creerActive()">Créer</button>
+        </div>
+    </div>
+
+    <!-- MODIFIER PARAMETRE -->
+    <div class="col-md-3" *ngIf="afficherDivModifier">
+        <h3>Modification du paramètre</h3>
+        <form name="form1" #f="ngForm" novalidate>
+            <div class="form-group">
+                <label for="modifLibelle">Libelle</label>
+                <input type="text" class="form-control" name="modifLibelle" [(ngModel)]="selectedParam.libelle" #libelle="ngModel" />
+            </div>
+            <div class="form-group">
+                <label for="modifValeur">Valeur</label>
+                <input type="text" class="form-control" name="modifValeur" [(ngModel)]="selectedParam.valeur" #valeur="ngModel" />
+            </div>
+            <div class="form-group">
+                <label for="modifCommentaire">Commentaire</label>
+                <input type="text" class="form-control" name="modifCommentaire" [(ngModel)]="selectedParam.commentaire" #commentaire="ngModel"
+                />
+            </div>
+
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary" (click)="enregistrerModification()">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- CREER PARAMETRE -->
+    <div class="col-md-3" *ngIf="afficherDivCreer">
+        <h3>Création du paramètre</h3>
+        <form name="form2" #f="ngForm" novalidate>
+            <div class="form-group">
+                <label for="libelle">Libelle</label>
+                <input type="text" class="form-control" name="libelle" [(ngModel)]="creationParam.libelle" #libelle="ngModel" />
+            </div>
+            <div class="form-group">
+                <label for="valeur">Valeur</label>
+                <input type="text" class="form-control" name="valeur" [(ngModel)]="creationParam.valeur" #valeur="ngModel" />
+            </div>
+            <div class="form-group">
+                <label for="commentaire">Commentaire</label>
+                <input type="text" class="form-control" name="commentaire" [(ngModel)]="creationParam.commentaire" #commentaire="ngModel"
+                />
+            </div>
+
+            <div class="form-group">
+                <button [disabled]="loading" class="btn btn-primary" (click)="creerParametre()">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</div>

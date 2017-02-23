@@ -1,0 +1,21 @@
+<h1 [myHighlight]="color">{{title}}</h1>
+
+<h4 [style.color]="isSpecial ? 'red' : 'green'">Choisir une couleur</h4>
+<div>
+    <input type="radio" name="colors" (click)="color='lightgreen'">Vert
+    <input type="radio" name="colors" (click)="color='yellow'">Jaune
+    <input type="radio" name="colors" (click)="color='cyan'">Bleu
+</div>
+
+<input #ref>
+<button (click)="afficherSaisie(ref.value)">Afficher saisie</button>
+
+<p *myUnless="ref.value == 'cacher'">
+    test myUnless
+</p>
+
+<!--<li class="nav-item">
+    <a class="nav-link" routerLinkActive="active" [routerLink]="['/dashboard/child']"><i class="icon-speedometer"></i> Child <span class="badge badge-info"></span></a>
+</li>
+-->
+<router-outlet></router-outlet>

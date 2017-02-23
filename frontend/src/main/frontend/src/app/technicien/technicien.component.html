@@ -1,0 +1,127 @@
+<div class="row">
+  <div class="animated fadeIn col-md-4">
+    <h2>Liste des techniciens</h2>
+
+    <ul class="heroes">
+      <li *ngFor="let technicien of techniciens" (click)="onSelect(technicien)" [class.selected]="technicien === selectedTechnicien">
+        <span class="hero-element">
+      <span class="badge">{{technicien.id}}</span> {{technicien.firstName}} {{technicien.lastName}}
+        </span>
+        <button class="delete-button" (click)="deleteTechnicien(technicien, $event)">Supprimer</button>
+      </li>
+    </ul>
+
+    <div class="error" *ngIf="error">{{error}}</div>
+  </div>
+  <div class="col-md-8" *ngIf="selectedTechnicien">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <strong>Informations sur le technicien</strong>
+          </div>
+          <div class="card-block">
+            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal ">
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label">Nom d'utilisateur</label>
+                <div class="col-md-9">
+                  <p class="form-control-static"> {{selectedTechnicien.userName}}</p>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Prénom</label>
+                <div class="col-md-9">
+                  <input type="text" id="prenomInput" name="prenomInput" class="form-control" placeholder="Prénom" [ngModel]="selectedTechnicien.firstName">
+                  <span class="help-block">20 caractères maximum</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Nom</label>
+                <div class="col-md-9">
+                  <input type="text" id="nomInput" name="nomInput" class="form-control" placeholder="Nom" [(ngModel)]="selectedTechnicien.lastName">
+                  <span class="help-block">30 caractères maximum</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="email-input">Adresse mail</label>
+                <div class="col-md-9">
+                  <input type="email" id="email-input" name="email-input" class="form-control" placeholder="Adresse mail" [(ngModel)]="selectedTechnicien.mail">
+                  <span class="help-block">xxxxxxxxx@xxxxxxx.xxx</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="password-input">Mot de passe</label>
+                <div class="col-md-9">
+                  <input type="password" id="password-input" name="password-input" class="form-control" placeholder="Mot de passe" [(ngModel)]="selectedTechnicien.password">
+                  <span class="help-block">Caractères alphanumériques et * $ % ; autorisés</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="textarea-input">Commentaires</label>
+                <div class="col-md-9">
+                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Commentaires"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="select">Sexe</label>
+                <div class="col-md-9">
+                  <select id="select" name="select" class="form-control" size="1">
+                                    <option [selected]="selectedTechnicien.sexe=='H'" [ngValue]="H">Homme</option>
+                                    <option [selected]="selectedTechnicien.sexe=='F'" [ngValue]="F">Femme</option>
+                                </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="multiple-select">Zones attribuées</label>
+                <div class="col-md-9">
+                  <select id="multiple-select" name="multiple-select" class="form-control" size="3" multiple>
+                                   <option *ngFor="let zone of selectedTechnicien.zones" value="zone.nom">{{zone.nom}}</option>
+                                </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label">Qualification</label>
+                <div class="col-md-9">
+                  <label class="checkbox-inline" for="inline-checkbox1">
+                                    <input [checked]="selectedTechnicien.qualification=='Junior'" type="radio" id="inline-checkbox1" name="inline-checkbox1" value="Junior">Junior
+                                </label>
+                  <label class="checkbox-inline" for="inline-checkbox2">
+                                    <input [checked]="selectedTechnicien.qualification=='Senior'" type="radio" id="inline-checkbox2" name="inline-checkbox2" value="Senior">Senior
+                                </label>
+                  <label class="checkbox-inline" for="inline-checkbox3">
+                                    <input [checked]="selectedTechnicien.qualification=='Expert'" type="radio" id="inline-checkbox3" name="inline-checkbox3" value="Expert">Expert
+                                </label>
+                  <label class="checkbox-inline" for="inline-checkbox4">
+                                    <input [checked]="selectedTechnicien.qualification=='Maître'" type="radio" id="inline-checkbox4" name="inline-checkbox4" value="Maître">Maître
+                                </label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Adresse postale</label>
+                <div class="col-md-9">
+                  <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Prénom" [(ngModel)]="selectedTechnicien.adressePostale">
+                  <span class="help-block">100 caractères maximum</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Technicien mobile</label>
+                <div class="col-md-9">
+                  <label class="switch switch-3d switch-primary">
+                        <input type="checkbox" class="switch-input" [checked]="selectedTechnicien.mobile">
+                        <span class="switch-label"></span>
+                        <span class="switch-handle"></span>
+                    </label>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
