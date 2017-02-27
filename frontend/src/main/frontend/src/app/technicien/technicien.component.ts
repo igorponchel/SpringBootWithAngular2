@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Technicien } from './technicien';
 import { TechnicienService } from './technicien.service';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -54,7 +55,7 @@ export class TechnicienComponent implements OnInit {
   }
 
   onSelect(technicien: Technicien): void {
-    if (this.selectedTechnicien) {
+    if (this.selectedTechnicien && this.selectedTechnicien === technicien) {
       this.selectedTechnicien = null;
     } else {
       this.selectedTechnicien = technicien;
@@ -65,4 +66,65 @@ export class TechnicienComponent implements OnInit {
     /*this.router.navigate(['/detailTechnicien', this.selectedTechnicien.id]);*/
 
   }
+
+  /****************************/
+  /* DEBUT Validation via component */
+  /****************************/
+  detailForm: NgForm;
+  @ViewChild('detailForm') currentForm: NgForm;
+
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
+
+  formChanged() {
+    if (this.currentForm === this.detailForm) {
+      return;
+    }
+    this.detailForm = this.currentForm;
+    if (this.detailForm) {
+      this.detailForm.valueChanges
+        .subscribe(data => this.onValueChanged(data));
+    }
+  }
+
+  onValueChanged(data?: any) {
+    if (!this.detailForm) { return; }
+    const form = this.detailForm.form;
+
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  formErrors = {
+    'nomInput': '',
+    'power': ''
+  };
+
+  validationMessages = {
+    'nomInput': {
+      'required': 'Le nom est requis',
+      'minlength': '4 caractères minimum',
+      'maxlength': '24 caractères maximum'
+    },
+    'power': {
+      'required': 'Power is required.'
+    }
+  };
+
+  /****************************/
+  /* FIN Validation via component */
+  /****************************/
+
+
 }

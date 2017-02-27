@@ -21,7 +21,7 @@
             <strong>Informations sur le technicien</strong>
           </div>
           <div class="card-block">
-            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal ">
+            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal" #detailForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="form-group row">
                 <label class="col-md-3 form-control-label">Nom d'utilisateur</label>
                 <div class="col-md-9">
@@ -31,16 +31,34 @@
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Prénom</label>
                 <div class="col-md-9">
-                  <input type="text" id="prenomInput" name="prenomInput" class="form-control" placeholder="Prénom" [ngModel]="selectedTechnicien.firstName">
-                  <span class="help-block">20 caractères maximum</span>
+                  <input type="text" id="prenominput" name="prenominput" class="form-control" placeholder="Prénom" [ngModel]="selectedTechnicien.firstName"
+                    required maxlength="20" minlength="4" #prenominput="ngModel">
+                    <span class="help-block">20 caractères maximum</span>
+                </div>
+              </div>
+              <!-- Validation via html -->
+              <div *ngIf="prenominput.errors && (prenominput.dirty || prenominput.touched)" class="alert alert-danger">
+                <div [hidden]="!prenominput.errors.required">
+                  Le nom est requis
+                 </div>
+                <div [hidden]="!prenominput.errors.minlength">
+                  4 caractères minimum
+                </div>
+                <div [hidden]="!prenominput.errors.maxlength">
+                  20 caractères maximum
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Nom</label>
                 <div class="col-md-9">
-                  <input type="text" id="nomInput" name="nomInput" class="form-control" placeholder="Nom" [(ngModel)]="selectedTechnicien.lastName">
-                  <span class="help-block">30 caractères maximum</span>
+                  <input type="text" id="nomInput" name="nomInput" class="form-control" placeholder="Nom" [(ngModel)]="selectedTechnicien.lastName"
+                    required minlength="4" maxlength="24">
+                    <span class="help-block">24 caractères maximum</span>
                 </div>
+              </div>
+               <!-- Validation via component -->
+              <div *ngIf="formErrors.nomInput" class="alert alert-danger">
+                {{ formErrors.nomInput }}
               </div>
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="email-input">Adresse mail</label>

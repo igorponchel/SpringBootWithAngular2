@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { QuestionService } from '../dynamicform/question.service';
 
 @Component({
   templateUrl: 'dashboard.component.html'
@@ -7,8 +8,6 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   title: String = 'Bienvenue sur le Dashboard';
-
-  constructor( ) { }
 
   color: string;
   isSpecial: boolean;

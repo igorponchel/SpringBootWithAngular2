@@ -1,6 +1,6 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
@@ -39,6 +39,11 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { HighlightDirective } from './shared/highlight.directive';
 import { UnlessDirective } from './shared/unless.directive';
 
+import { DynamicFormComponent }         from './dynamicform/dynamic-form.component';
+import { DynamicComponent }         from './dynamicform/dynamic.component';
+import { DynamicFormQuestionComponent } from './dynamicform/dynamic-form-question.component';
+import { QuestionService } from './dynamicform/question.service';
+
 
 import 'rxjs/Rx';
 
@@ -57,10 +62,14 @@ import 'rxjs/Rx';
     DashboardComponent,
     ParametrageComponent,
     HighlightDirective,
-    UnlessDirective
+    UnlessDirective,
+    DynamicComponent,
+    DynamicFormComponent, 
+    DynamicFormQuestionComponent
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     DropdownModule.forRoot(),
     TabsModule.forRoot(),
@@ -79,7 +88,8 @@ import 'rxjs/Rx';
     AlertService,
     AuthenticationService,
     BaseRequestOptions,
-    TechnicienService
+    TechnicienService,
+    QuestionService
   ],
   bootstrap: [AppComponent]
 })

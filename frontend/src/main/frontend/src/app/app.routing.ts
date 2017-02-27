@@ -6,6 +6,7 @@ import { LoginComponent } from './auth/login/index';
 import { ParametrageComponent } from './parametrage/index';
 import { TechnicienComponent } from './technicien/index';
 import { AuthGuard } from './auth/index';
+import { DynamicComponent }         from './dynamicform/dynamic.component';
 
 export const routes: Routes = [
 
@@ -14,6 +15,11 @@ export const routes: Routes = [
     data: { title: 'Dashboard' },
     path: 'dashboard', 
     component: DashboardComponent    
+  },
+  { 
+    data: { title : 'Dynamic form'},
+    path: 'dynamicForm',
+    component: DynamicComponent
   },
   { path: 'technicien', component: TechnicienComponent, canActivate: [AuthGuard], data: { title: 'Liste des techniciens' } },
   { path: 'parametrage', component: ParametrageComponent, canActivate: [AuthGuard], data: { title: 'Paramètrage' } },
